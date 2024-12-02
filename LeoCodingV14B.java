@@ -51,8 +51,8 @@ public class LeoCodingV14B extends LinearOpMode {
         arm1 = hardwareMap.get(Servo.class, "arm1");
         arm2 = hardwareMap.get(Servo.class, "arm2");
 
-        wrist1 = hardwareMap.get(Servo.class, "wrist1");
-        wrist2 = hardwareMap.get(Servo.class, "wrist2");
+        wrist1 = hardwareMap.get(Servo.class, "front1");
+        wrist2 = hardwareMap.get(Servo.class, "front2");
 
 
 
@@ -261,6 +261,22 @@ public class LeoCodingV14B extends LinearOpMode {
 
 //            activeArm1.setPower(gamepad1.left_trigger - gamepad1.right_trigger);
 //            activeArm2.setPower(gamepad1.left_trigger - gamepad1.right_trigger);
+
+            if (gamepad1.a ) {
+
+                wrist1.setPosition(0);//90 degrees back | 0.0 //60 degress .34
+                wrist2.setPosition(1);//90 degrees back | 0.8
+
+
+            }
+
+            if (gamepad1.b ) {
+
+                wrist1.setPosition(1);//90 degrees back | 0.0 //60 degress .34
+                wrist2.setPosition(0);//90 degrees back | 0.8
+
+
+            }
 
             if (activeArm1.getCurrentPosition() > -2100) {
                 activeArm1.setPower(gamepad1.left_trigger - gamepad1.right_trigger);
