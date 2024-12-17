@@ -26,7 +26,7 @@ public class LeoCodingV14 extends LinearOpMode {
     private Servo drone;
 //    boolean arm = true;
 //    float height;
-
+//    boolean armEncoder=true;
     @Override
     public void runOpMode() {
 
@@ -118,8 +118,8 @@ public class LeoCodingV14 extends LinearOpMode {
             //grab
             //grabbing
             if (gamepad2.x) {
-                leftgrab.setPosition(0.72);
-                rightgrab.setPosition(0.35);
+                leftgrab.setPosition(0.68);
+                rightgrab.setPosition(0.36);
             }
 
             //triangle/y is open
@@ -145,7 +145,7 @@ public class LeoCodingV14 extends LinearOpMode {
 
                         if (gamepad2.dpad_down) {
                             arm1.setPosition(0.5);
-                            arm2.setPosition(0.5);
+                            arm2.setPosition(0.49);
                         }
             //arm ready for pixel/sample
 // arm down
@@ -153,7 +153,7 @@ public class LeoCodingV14 extends LinearOpMode {
 //                wrist1.setPosition(.55);
 //                wrist2.setPosition(0.45);
                 arm1.setPosition(0.42);//90 degrees back | 0.0 //60 degress .34
-                arm2.setPosition(0.58);//90 degrees back | 0.8
+                arm2.setPosition(0.59);//90 degrees back | 0.8
 
 
             }
@@ -170,7 +170,7 @@ public class LeoCodingV14 extends LinearOpMode {
             if (gamepad2.dpad_up) {
 
                 arm1.setPosition(.79);
-                arm2.setPosition(0.21);
+                arm2.setPosition(0.22);
             }
 
 
@@ -194,34 +194,43 @@ public class LeoCodingV14 extends LinearOpMode {
                 right_back.setPower((gamepad1.left_stick_y - gamepad1.left_stick_x + gamepad1.right_stick_x) * .35);
             }
 
-
-
-            if(gamepad2.back){
-                cap.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                cap2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            }
-
-//            if (gamepad2.right_bumper) {
-//                cap.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//                cap2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//                cap.setPower(1);
-//                cap2.setPower(1);
+//            if (gamepad2.start) armEncoder=true;
+//            if (gamepad2.back) armEncoder=false;
+//            if (gamepad2.start) {
+//                armEncoder = true;
+//            } else if (gamepad2.back) {
+//                armEncoder = false;
+//            }
+//            if (armEncoder == false) {
 //
-////                cap.setTargetPosition(600);
-////                cap2.setTargetPosition(600);
+//                    cap.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//                    cap2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 //
-//                cap.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//                cap2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//            }
+//            if (armEncoder==true) {
 //
-//                cap.setTargetPosition(600);
-//                cap2.setTargetPosition(600);
+//                    cap.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//                    cap2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 //
 //            }
 
-//          if  (gamepad2.start){
-//              cap.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//              cap2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//          }
+//            if (gamepad2.right_bumper) {
+//                cap.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//                cap2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+////                cap.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+////                cap2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//                cap.setPower(1);
+//                cap2.setPower(1);
+//
+//                cap.setTargetPosition(900);
+//                cap2.setTargetPosition(900);
+//
+//            }
+
+          if  (gamepad2.right_stick_button){
+              cap.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+              cap2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+          }
 
 //            if(gamepad2.left_bumper && !arm){
 //                height=height+1;
@@ -307,7 +316,7 @@ public class LeoCodingV14 extends LinearOpMode {
             telemetry.addData("FrMotor", right_drive.getCurrentPosition());
             telemetry.addData("FLMotor", left_drive.getCurrentPosition());
 //            telemetry.addData("pressed", pressed();
-//
+//            telemetry.addData("armendcoder state" armEncoder());
 //            telemetry.addData("arm", arm);
             telemetry.update();
 

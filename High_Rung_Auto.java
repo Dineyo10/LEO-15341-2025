@@ -116,7 +116,7 @@ public class High_Rung_Auto extends LinearOpMode {
 
         // Put run blocks here.
         while (opModeIsActive()) {
-
+            sleep(4000);
             arm_outake();
             sleep(500);
             FirstMove();
@@ -136,7 +136,7 @@ public class High_Rung_Auto extends LinearOpMode {
             resetEncoder();
             sleep(100);
             obserePark();
-            sleep(7000);
+            sleep(5500);
             resetEncoder();
             sleep(500);
             LastMove();
