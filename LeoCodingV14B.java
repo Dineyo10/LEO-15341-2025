@@ -14,7 +14,8 @@ public class LeoCodingV14B extends LinearOpMode {
     private DcMotor left_back;
     private DcMotor right_back;
     private Servo grab;
-//    private Servo rightgrab;
+    private Servo leftgrab;
+    private Servo rightgrab;
     private DcMotor cap;
     private DcMotor cap2;
     private DcMotor activeArm1;
@@ -23,9 +24,11 @@ public class LeoCodingV14B extends LinearOpMode {
     private Servo arm2;
     private Servo wrist1;
     private Servo wrist2;
-    private Servo drone;
+    private Servo swivel;
+//    private Servo drone;
 //    boolean arm = true;
 //    float height;
+
 
     @Override
     public void runOpMode() {
@@ -38,8 +41,8 @@ public class LeoCodingV14B extends LinearOpMode {
 
         grab = hardwareMap.get(Servo.class, "grab");
 
-//        leftgrab = hardwareMap.get(Servo.class, "leftgrab");
-//        rightgrab = hardwareMap.get(Servo.class, "rightgrab");
+        leftgrab = hardwareMap.get(Servo.class, "leftgrab");
+        rightgrab = hardwareMap.get(Servo.class, "rightgrab");
 
 
         cap = hardwareMap.get(DcMotor.class, "cap");
@@ -55,6 +58,7 @@ public class LeoCodingV14B extends LinearOpMode {
         wrist2 = hardwareMap.get(Servo.class, "front2");
 
 
+        swivel = hardwareMap.get(Servo.class, "swivel");
 
 //        drone = hardwareMap.get(Servo.class, "drone");
 
@@ -89,6 +93,8 @@ public class LeoCodingV14B extends LinearOpMode {
 //        right_back.setTargetPosition(0);
 
 //        left_back.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        left_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        right_drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 //        right_back.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
 //        left_back.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -126,62 +132,78 @@ public class LeoCodingV14B extends LinearOpMode {
             //grab
             //grabbing
             if (gamepad2.x) {
-                grab.setPosition(1);
-//                leftgrab.setPosition(0.72);
-//                rightgrab.setPosition(0.35);
+                grab.setPosition(0);
+                leftgrab.setPosition(0.72);
+                rightgrab.setPosition(0.34);
             }
 
             //triangle/y is open
             //leftgrab up is open
             //rightgrab down is open
             if (gamepad2.y ) {
-                grab.setPosition(0);
-//                leftgrab.setPosition(.38);
-//                rightgrab.setPosition(.62);
+                leftgrab.setPosition(.33);
+                rightgrab.setPosition(.65);
+                sleep(150);
+                grab.setPosition(1);
 
             }
 
+            if (activeArm2.getCurrentPosition() > -1000 && gamepad1.a ) {
+                arm1.setPosition(0.12);
+                arm2.setPosition(0.85);
+            }
+            if (activeArm2.getCurrentPosition() < -1000){
+                arm1.setPosition(0.44);
+                arm2.setPosition(0.53);
+            }
 
             //open leftgrab
 
-//            if (gamepad2.dpad_left) {
-//                leftgrab.setPosition(0.85);
-//            }
-//            //open rightgrab
-//            if (gamepad2.dpad_right) {
-//                rightgrab.setPosition(0.15);
-//            }
+//
 
 
-            if (gamepad2.dpad_down) {
-                arm1.setPosition(0.5);
-                arm2.setPosition(0.5);
-            }
+//            if (gamepad2.dpad_down) {
+//                arm1.setPosition(0.5);
+//                arm2.setPosition(0.5);
+//            }
             //arm ready for pixel/sample
 // arm down
+            if(gamepad2.dpad_up){
+                wrist1.setPosition(.65);
+                wrist2.setPosition(0.31);
+            }
             if (gamepad2.a ) {
-//                wrist1.setPosition(.55);
-//                wrist2.setPosition(0.45);
-                arm1.setPosition(0.42);//90 degrees back | 0.0 //60 degress .34
-                arm2.setPosition(0.58);//90 degrees back | 0.8
-
-
+                wrist1.setPosition(.9);
+                wrist2.setPosition(0.06);
+                swivel.setPosition(0.5);
+                arm1.setPosition(0.44);
+                arm2.setPosition(0.53);
             }
 
-
-            //arm ready to score
-            //over
             if (gamepad2.b ) {
-                arm1.setPosition(1);
-                arm2.setPosition(0);
+                wrist1.setPosition(0.31);
+                wrist2.setPosition(.64);
+                swivel.setPosition(.46);
+                arm1.setPosition(.69);
+                arm2.setPosition(0.28);
+            }
+
+            if(gamepad2.dpad_left){
+                swivel.setPosition(.8);
+            }
+            if(gamepad2.dpad_right){
+                swivel.setPosition(.2);
+            }
+            if(gamepad2.dpad_down){
+                swivel.setPosition(.5);
             }
 
             //arm straight up
-            if (gamepad2.dpad_up) {
-
-                arm1.setPosition(.79);
-                arm2.setPosition(0.21);
-            }
+//            if (gamepad2.dpad_up) {
+//
+//                arm1.setPosition(.79);
+//                arm2.setPosition(0.21);
+//            }
 
 
             // mecanum code
@@ -262,23 +284,23 @@ public class LeoCodingV14B extends LinearOpMode {
 //            activeArm1.setPower(gamepad1.left_trigger - gamepad1.right_trigger);
 //            activeArm2.setPower(gamepad1.left_trigger - gamepad1.right_trigger);
 
-            if (gamepad1.a ) {
+//            if (gamepad1.a ) {
+//
+//                wrist1.setPosition(0);//90 degrees back | 0.0 //60 degress .34
+//                wrist2.setPosition(1);//90 degrees back | 0.8
+//
+//
+//            }
+//
+//            if (gamepad1.b ) {
+//
+//                wrist1.setPosition(1);//90 degrees back | 0.0 //60 degress .34
+//                wrist2.setPosition(0);//90 degrees back | 0.8
+//
+//
+//            }
 
-                wrist1.setPosition(0);//90 degrees back | 0.0 //60 degress .34
-                wrist2.setPosition(1);//90 degrees back | 0.8
-
-
-            }
-
-            if (gamepad1.b ) {
-
-                wrist1.setPosition(1);//90 degrees back | 0.0 //60 degress .34
-                wrist2.setPosition(0);//90 degrees back | 0.8
-
-
-            }
-
-            if (activeArm1.getCurrentPosition() > -2100) {
+            if (activeArm2.getCurrentPosition() > -1700) {
                 activeArm1.setPower(gamepad1.left_trigger - gamepad1.right_trigger);
                 activeArm2.setPower(gamepad1.left_trigger - gamepad1.right_trigger);
             }
@@ -294,7 +316,7 @@ public class LeoCodingV14B extends LinearOpMode {
 
             }
 
-            if (cap.getCurrentPosition() < 3050) {
+            if (cap2.getCurrentPosition() > -3150) {
 
 
                 cap.setPower(gamepad2.left_trigger - gamepad2.right_trigger);
