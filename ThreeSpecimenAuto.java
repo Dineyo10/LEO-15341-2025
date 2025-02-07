@@ -69,10 +69,10 @@ public class ThreeSpecimenAuto extends LinearOpMode {
     static final Pose2D TARGET_4 = new Pose2D(DistanceUnit.MM, -1250, 800, AngleUnit.DEGREES, 0);
     static final Pose2D TARGET_5 = new Pose2D(DistanceUnit.MM, -400, 950, AngleUnit.DEGREES, 0);
     static final Pose2D TARGET_6 = new Pose2D(DistanceUnit.MM, -451,900, AngleUnit.DEGREES, 0);
-    static final Pose2D TARGET_7 = new Pose2D(DistanceUnit.MM, -195, 900, AngleUnit.DEGREES, 0);
+    static final Pose2D TARGET_7 = new Pose2D(DistanceUnit.MM, -193, 780, AngleUnit.DEGREES, 0);
     static final Pose2D TARGET_8 = new Pose2D(DistanceUnit.MM, -400, -200, AngleUnit.DEGREES, 0);
     static final Pose2D TARGET_9 = new Pose2D(DistanceUnit.MM, -445, -200, AngleUnit.DEGREES, 0);
-    static final Pose2D TARGET_10 = new Pose2D(DistanceUnit.MM, -198, 900, AngleUnit.DEGREES, 0);
+    static final Pose2D TARGET_10 = new Pose2D(DistanceUnit.MM, -193, 780, AngleUnit.DEGREES, 0);
     static final Pose2D TARGET_11 = new Pose2D(DistanceUnit.MM, -400, -400, AngleUnit.DEGREES, 0);
     static final Pose2D TARGET_12 = new Pose2D(DistanceUnit.MM, -445, -400, AngleUnit.DEGREES, 0);
     static final Pose2D TARGET_13 = new Pose2D(DistanceUnit.MM, -200, 1100, AngleUnit.DEGREES, 0);
@@ -301,7 +301,7 @@ public class ThreeSpecimenAuto extends LinearOpMode {
                         highRung();
                         forward_arm_front();
                         back_arm_bar();
-                        sleep(1000);
+                        sleep(800);
                         grab();
                         sleep(200);
                         forward_arm_front();
@@ -369,8 +369,8 @@ public class ThreeSpecimenAuto extends LinearOpMode {
         wrist1.setPosition(0.35);
         wrist2.setPosition(.60);
         swivel.setPosition(.64);
-        arm1.setPosition(.84);
-        arm2.setPosition(0.14);
+        arm1.setPosition(.83);
+        arm2.setPosition(0.15);
     }
     public void Arm_out(){
         activeArm1.setPower(.5);

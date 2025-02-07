@@ -149,12 +149,12 @@ public class LeoCodingV14B extends LinearOpMode {
             }
 
             if (activeArm2.getCurrentPosition() > -1000 && gamepad1.a ) {
-                arm1.setPosition(0.12);
-                arm2.setPosition(0.85);
+                arm1.setPosition(0.10);
+                arm2.setPosition(0.87);
             }
             if (activeArm2.getCurrentPosition() < -1000){
-                arm1.setPosition(0.44);
-                arm2.setPosition(0.53);
+                arm1.setPosition(0.64);
+                arm2.setPosition(0.33);
             }
 
             //open leftgrab
@@ -169,33 +169,41 @@ public class LeoCodingV14B extends LinearOpMode {
             //arm ready for pixel/sample
 // arm down
             if(gamepad2.dpad_up){
+                swivel.setPosition(.68);
                 wrist1.setPosition(.65);
                 wrist2.setPosition(0.31);
             }
             if (gamepad2.a ) {
-                wrist1.setPosition(.9);
-                wrist2.setPosition(0.06);
-                swivel.setPosition(0.5);
-                arm1.setPosition(0.44);
-                arm2.setPosition(0.53);
+                wrist1.setPosition(.89);
+                wrist2.setPosition(0.07);
+                swivel.setPosition(.68);
+                arm1.setPosition(0.39);
+                arm2.setPosition(0.58);
             }
 
             if (gamepad2.b ) {
-                wrist1.setPosition(0.31);
-                wrist2.setPosition(.64);
-                swivel.setPosition(.46);
-                arm1.setPosition(.69);
-                arm2.setPosition(0.28);
+                wrist1.setPosition(0.35);
+                wrist2.setPosition(.60);
+                swivel.setPosition(.64);
+                arm1.setPosition(.83);
+                arm2.setPosition(0.15);
             }
 
             if(gamepad2.dpad_left){
-                swivel.setPosition(.8);
+                swivel.setPosition(.99);
             }
             if(gamepad2.dpad_right){
-                swivel.setPosition(.2);
+                swivel.setPosition(.34);
             }
             if(gamepad2.dpad_down){
-                swivel.setPosition(.5);
+                swivel.setPosition(.68);
+            }
+            if(gamepad2.left_stick_button){
+                grab.setPosition(0);
+                sleep(100);
+                swivel.setPosition(0);
+                wrist1.setPosition(.57);
+                wrist2.setPosition(0.39);
             }
 
             //arm straight up
@@ -214,10 +222,10 @@ public class LeoCodingV14B extends LinearOpMode {
             }
             if (!pressed) {
 
-                left_drive.setPower((gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x) * .9);
-                right_drive.setPower((-gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x) * .9);
-                left_back.setPower((gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x) * .9);
-                right_back.setPower((gamepad1.left_stick_y - gamepad1.left_stick_x + gamepad1.right_stick_x) * .9);
+                left_drive.setPower((gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x) * 1);
+                right_drive.setPower((-gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x) * 1);
+                left_back.setPower((gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x) * 1);
+                right_back.setPower((gamepad1.left_stick_y - gamepad1.left_stick_x + gamepad1.right_stick_x) * 1);
 
             } else {
                 left_drive.setPower((gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x) * .35);
@@ -300,7 +308,7 @@ public class LeoCodingV14B extends LinearOpMode {
 //
 //            }
 
-            if (activeArm2.getCurrentPosition() > -1700) {
+            if (activeArm2.getCurrentPosition() > -1600) {
                 activeArm1.setPower(gamepad1.left_trigger - gamepad1.right_trigger);
                 activeArm2.setPower(gamepad1.left_trigger - gamepad1.right_trigger);
             }
@@ -316,7 +324,7 @@ public class LeoCodingV14B extends LinearOpMode {
 
             }
 
-            if (cap2.getCurrentPosition() > -3150) {
+            if (cap2.getCurrentPosition() > -3100) {
 
 
                 cap.setPower(gamepad2.left_trigger - gamepad2.right_trigger);

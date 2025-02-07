@@ -346,8 +346,8 @@ public class TwoSpecimenAuto extends LinearOpMode {
         wrist1.setPosition(0.35);
         wrist2.setPosition(.60);
         swivel.setPosition(.64);
-        arm1.setPosition(.84);
-        arm2.setPosition(0.14);
+        arm1.setPosition(.83);
+        arm2.setPosition(0.15);
     }
     public void Arm_out(){
         activeArm1.setPower(.5);
