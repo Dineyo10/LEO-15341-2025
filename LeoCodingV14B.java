@@ -1,10 +1,28 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
+
+import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
+
+import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+
+
 
 //@Disabled
 @TeleOp
@@ -25,6 +43,18 @@ public class LeoCodingV14B extends LinearOpMode {
     private Servo wrist1;
     private Servo wrist2;
     private Servo swivel;
+    private TouchSensor touch;
+    private ColorSensor color;
+    private Servo backGrab;
+    private Servo wrist;
+
+
+
+
+
+
+    // Target heading for straight movement (0 degrees is "straight")
+//    private DistanceSensor distance;
 //    private Servo drone;
 //    boolean arm = true;
 //    float height;
@@ -40,6 +70,8 @@ public class LeoCodingV14B extends LinearOpMode {
         right_back = hardwareMap.get(DcMotor.class, "right_back");
 
         grab = hardwareMap.get(Servo.class, "grab");
+
+        backGrab = hardwareMap.get(Servo.class, "backGrab");
 
         leftgrab = hardwareMap.get(Servo.class, "leftgrab");
         rightgrab = hardwareMap.get(Servo.class, "rightgrab");
@@ -57,8 +89,20 @@ public class LeoCodingV14B extends LinearOpMode {
         wrist1 = hardwareMap.get(Servo.class, "front1");
         wrist2 = hardwareMap.get(Servo.class, "front2");
 
+        wrist = hardwareMap.get(Servo.class, "wrist");
+
 
         swivel = hardwareMap.get(Servo.class, "swivel");
+
+        touch = hardwareMap.get(TouchSensor.class, "touch");
+
+        color = hardwareMap.get(ColorSensor.class, "color");
+
+
+
+
+
+//        distance = hardwareMap.get(DistanceSensor.class, "distance");
 
 //        drone = hardwareMap.get(Servo.class, "drone");
 
@@ -110,31 +154,26 @@ public class LeoCodingV14B extends LinearOpMode {
         right_back.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         cap.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         cap2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
+        YawPitchRollAngles robotOrientation;
 
         boolean pressed = false;
         waitForStart();
 
+        // Give time to display the message before starting the loop
         // Put run blocks here.
         while (opModeIsActive()) {
 
-//drone
-//fire
-//            if (gamepad2.right_stick_button) {
-//                drone.setPosition(0.7);
-//            }
-//
-////ready
-//            if (gamepad2.left_stick_button) {
-//                drone.setPosition(1);
-//            }
+           float LF_Power=((gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x) * 1 );
+            float RF_Power=((-gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x) * 1);
+            float LB_Power=((gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x) * 1);
+            float RB_Power=((gamepad1.left_stick_y - gamepad1.left_stick_x + gamepad1.right_stick_x) * 1);
 
-            //grab
-            //grabbing
+
             if (gamepad2.x) {
-                grab.setPosition(0);
+                grab.setPosition(0.4);
                 leftgrab.setPosition(0.72);
                 rightgrab.setPosition(0.34);
+
             }
 
             //triangle/y is open
@@ -144,49 +183,63 @@ public class LeoCodingV14B extends LinearOpMode {
                 leftgrab.setPosition(.33);
                 rightgrab.setPosition(.65);
                 sleep(150);
-                grab.setPosition(1);
+                grab.setPosition(.8);
 
             }
 
             if (activeArm2.getCurrentPosition() > -1000 && gamepad1.a ) {
                 arm1.setPosition(0.10);
-                arm2.setPosition(0.87);
+                arm2.setPosition(0.90);
             }
             if (activeArm2.getCurrentPosition() < -1000){
                 arm1.setPosition(0.64);
-                arm2.setPosition(0.33);
+                arm2.setPosition(0.36);
             }
 
-            //open leftgrab
 
-//
-
-
-//            if (gamepad2.dpad_down) {
-//                arm1.setPosition(0.5);
-//                arm2.setPosition(0.5);
+//            if(gamepad1.b){
+//                arm1.setPosition(0.25);
+//                arm2.setPosition(0.75);
 //            }
-            //arm ready for pixel/sample
-// arm down
-            if(gamepad2.dpad_up){
-                swivel.setPosition(.68);
-                wrist1.setPosition(.65);
-                wrist2.setPosition(0.31);
-            }
+
+
+
             if (gamepad2.a ) {
-                wrist1.setPosition(.89);
-                wrist2.setPosition(0.07);
+            //BETU code
+                wrist1.setPosition(.9);
+                wrist2.setPosition(0.1);
                 swivel.setPosition(.68);
-                arm1.setPosition(0.39);
-                arm2.setPosition(0.58);
+                arm1.setPosition(0.3);
+                arm2.setPosition(.7);
+
+                //goBilda servo code
+//                wrist1.setPosition(.89);
+//                wrist2.setPosition(0.07);
+//                swivel.setPosition(.68);
+//                arm1.setPosition(0.39);
+//                arm2.setPosition(0.61);
             }
 
             if (gamepad2.b ) {
-                wrist1.setPosition(0.35);
-                wrist2.setPosition(.60);
+                //BETU code
+                wrist1.setPosition(0.25);
+                wrist2.setPosition(.75);
                 swivel.setPosition(.64);
-                arm1.setPosition(.83);
-                arm2.setPosition(0.15);
+                arm1.setPosition(.75);
+                arm2.setPosition(0.25);
+
+                //goBilda code
+//                wrist1.setPosition(0.36);
+//                wrist2.setPosition(.59);
+//                swivel.setPosition(.64);
+//                arm1.setPosition(.83);
+//                arm2.setPosition(0.17);
+            }
+
+            if(gamepad2.dpad_up){
+                swivel.setPosition(.68);
+                wrist1.setPosition(.65);
+                wrist2.setPosition(0.35);
             }
 
             if(gamepad2.dpad_left){
@@ -199,11 +252,11 @@ public class LeoCodingV14B extends LinearOpMode {
                 swivel.setPosition(.68);
             }
             if(gamepad2.left_stick_button){
-                grab.setPosition(0);
+                grab.setPosition(0.4);
                 sleep(100);
                 swivel.setPosition(0);
                 wrist1.setPosition(.57);
-                wrist2.setPosition(0.39);
+                wrist2.setPosition(0.43);
             }
 
             //arm straight up
@@ -222,16 +275,16 @@ public class LeoCodingV14B extends LinearOpMode {
             }
             if (!pressed) {
 
-                left_drive.setPower((gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x) * 1);
-                right_drive.setPower((-gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x) * 1);
-                left_back.setPower((gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x) * 1);
-                right_back.setPower((gamepad1.left_stick_y - gamepad1.left_stick_x + gamepad1.right_stick_x) * 1);
+                left_drive.setPower(LF_Power);
+                right_drive.setPower(RF_Power);
+                left_back.setPower(LB_Power);
+                right_back.setPower(RB_Power);
 
             } else {
-                left_drive.setPower((gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x) * .35);
-                right_drive.setPower((-gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x) * .35);
-                left_back.setPower((gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x) * .35);
-                right_back.setPower((gamepad1.left_stick_y - gamepad1.left_stick_x + gamepad1.right_stick_x) * .35);
+                left_drive.setPower((LF_Power) * .35);
+                right_drive.setPower((RF_Power) * .35);
+                left_back.setPower((LB_Power) * .35);
+                right_back.setPower((RB_Power) * .35);
             }
 
 
@@ -287,7 +340,10 @@ public class LeoCodingV14B extends LinearOpMode {
 //            if (arm== true) {
 //
 
+            if (touch.isPressed()){
 
+
+            }
 
 //            activeArm1.setPower(gamepad1.left_trigger - gamepad1.right_trigger);
 //            activeArm2.setPower(gamepad1.left_trigger - gamepad1.right_trigger);
@@ -312,32 +368,20 @@ public class LeoCodingV14B extends LinearOpMode {
                 activeArm1.setPower(gamepad1.left_trigger - gamepad1.right_trigger);
                 activeArm2.setPower(gamepad1.left_trigger - gamepad1.right_trigger);
             }
-
-            else
-            {
-//                activeArm1.setPower(0);
-//                activeArm2.setPower(0);
-
+            else {
                 activeArm1.setPower(Math.abs(gamepad1.left_trigger - gamepad1.right_trigger));
                 activeArm2.setPower(Math.abs(gamepad1.left_trigger - gamepad1.right_trigger));
-
-
             }
 
-            if (cap2.getCurrentPosition() > -3100) {
+            if (cap2.getCurrentPosition() > -3050) {
 
 
                 cap.setPower(gamepad2.left_trigger - gamepad2.right_trigger);
                 cap2.setPower(gamepad2.left_trigger - gamepad2.right_trigger);
-//                    cap.setPower(gamepad2.right_trigger - gamepad1.left_trigger);
-//                    cap2.setPower(gamepad2.right_trigger - gamepad1.left_trigger);
-
-
-
             }
             else {
-                cap.setPower(0);//-gamepad2.left_trigger - gamepad2.right_trigger);
-                cap2.setPower(0);//-gamepad2.left_trigger - gamepad2.right_trigger);
+                cap.setPower(0);
+                cap2.setPower(0);
             }
 //            }
 //
@@ -357,25 +401,42 @@ public class LeoCodingV14B extends LinearOpMode {
 //                }
 //            }
             telemetry.update();
-
+            //disable for matches!!!
             telemetry.addData("RCap", cap.getCurrentPosition());
             telemetry.addData("Lcap2", cap2.getCurrentPosition());
 
             telemetry.addData("leftarm", activeArm1.getCurrentPosition());
             telemetry.addData("rightarm", activeArm2.getCurrentPosition());
 
-//            telemetry.addData("height", height);
-            telemetry.addData("rMotor", right_back.getCurrentPosition());
-            telemetry.addData("LMotor", left_back.getCurrentPosition());
+//            telemetry.addData("rMotor", right_back.getCurrentPosition());
+//            telemetry.addData("LMotor", left_back.getCurrentPosition());
+//            telemetry.addData("FrMotor", right_drive.getCurrentPosition());
+//            telemetry.addData("FLMotor", left_drive.getCurrentPosition());
 
-            telemetry.addData("FrMotor", right_drive.getCurrentPosition());
-            telemetry.addData("FLMotor", left_drive.getCurrentPosition());
+//            telemetry.addData("BlueValue", color.blue());
+//            telemetry.addData("RedValue",  color.red());
+//            telemetry.addData("GreenValue",  color.green());
+
+
+//            telemetry.addData("TouchSensor", touch.isPressed());
+//            telemetry.addData("distance", distance.getDistance(DistanceUnit.CM));
+//            telemetry.addData("Yaw", robotOrientation.getYaw(AngleUnit.DEGREES));
+//            telemetry.addData("Roll", robotOrientation.getRoll(AngleUnit.DEGREES));
+//            telemetry.addData("Pitch", robotOrientation.getPitch(AngleUnit.DEGREES));
+
 //            telemetry.addData("pressed", pressed();
 //
+
 //            telemetry.addData("arm", arm);
             telemetry.update();
 
         }
 
+
     }
-}
+
+
+
+
+    }
+
