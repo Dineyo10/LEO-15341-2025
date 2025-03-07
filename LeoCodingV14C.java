@@ -170,8 +170,8 @@ public class LeoCodingV14C extends LinearOpMode {
 
 
             if (gamepad2.x) {
+                backGrab.setPosition(1);
                 grab.setPosition(0.44);
-             backGrab.setPosition(1);
 
             }
 
@@ -179,19 +179,19 @@ public class LeoCodingV14C extends LinearOpMode {
             //leftgrab up is open
             //rightgrab down is open
             if (gamepad2.y ) {
-                backGrab.setPosition(.2);
-                sleep(150);
-                grab.setPosition(.8);
+                backGrab.setPosition(.5);
+                sleep(250);
+                grab.setPosition(.9);
 
             }
 
             if (activeArm2.getCurrentPosition() > -1000 && gamepad1.a ) {
                 arm1.setPosition(0.10);
                 arm2.setPosition(0.90);
-                wrist.setPosition(.2);
+                wrist.setPosition(.8);
             }
             if (activeArm2.getCurrentPosition() < -1000){
-                arm1.setPosition(0.64);
+                arm1.setPosition(0.63);
                 arm2.setPosition(0.36);
             }
 
@@ -206,13 +206,14 @@ public class LeoCodingV14C extends LinearOpMode {
 
             if (gamepad2.a ) {
                 //BETU code
-                wrist.setPosition(.25);
+                //axon wrist code
+                wrist.setPosition(.83);
 
                 wrist1.setPosition(.91);
                 wrist2.setPosition(0.08);
                 swivel.setPosition(.68);
-                arm1.setPosition(0.39);
-                arm2.setPosition(.6);
+                arm1.setPosition(0.46);
+                arm2.setPosition(.53);
 
                 //goBilda servo code
 //                wrist1.setPosition(.89);
@@ -224,17 +225,24 @@ public class LeoCodingV14C extends LinearOpMode {
 
             if (gamepad2.b ) {
                 //BETU code
+                //freaky ah auto handoff
+//                wrist.setPosition(1);
+//
+//                wrist1.setPosition(0.20);
+//                wrist2.setPosition(.79);
+//                swivel.setPosition(.65);
+//                sleep(200);
+//                arm1.setPosition(.86);
+//                arm2.setPosition(0.13);
+
                 //vertical handoff
-                wrist.setPosition(.85);
+                wrist.setPosition(0);
 
-                wrist1.setPosition(0.1);
-                wrist2.setPosition(.9);
+                wrist1.setPosition(0.08);
+                wrist2.setPosition(.92);
                 swivel.setPosition(.63);
-                arm1.setPosition(.64);
-                arm2.setPosition(0.35);
-
-
-
+                arm1.setPosition(.63);
+                arm2.setPosition(0.36);
 
                 //normal handoff
 //                wrist.setPosition(.55);
@@ -269,11 +277,20 @@ public class LeoCodingV14C extends LinearOpMode {
                 swivel.setPosition(.68);
             }
             if(gamepad2.left_stick_button){
-                grab.setPosition(0.4);
-                sleep(100);
+//                grab.setPosition(0.4);
+//                sleep(100);
                 swivel.setPosition(0);
-                wrist1.setPosition(.57);
-                wrist2.setPosition(0.43);
+                wrist1.setPosition(.62);
+                wrist2.setPosition(0.37);
+            }
+
+            if(gamepad2.right_stick_button){
+//                grab.setPosition(0.4);
+//                sleep(100);
+//                swivel.setPosition(0);
+                wrist.setPosition(.2);
+                arm1.setPosition(0.39);
+                arm2.setPosition(.6);
             }
 
             //arm straight up
@@ -313,7 +330,7 @@ public class LeoCodingV14C extends LinearOpMode {
 
 //
 
-            if (activeArm2.getCurrentPosition() > -1600) {
+            if (activeArm2.getCurrentPosition() > -1725) {
                 activeArm1.setPower(gamepad1.left_trigger - gamepad1.right_trigger);
                 activeArm2.setPower(gamepad1.left_trigger - gamepad1.right_trigger);
             }
@@ -336,6 +353,10 @@ public class LeoCodingV14C extends LinearOpMode {
             if(touch.isPressed()){
                 cap.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 cap2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            }
+            else{
+                cap.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                cap2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             }
 //            }
 //
