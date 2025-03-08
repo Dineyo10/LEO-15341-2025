@@ -170,7 +170,7 @@ public class LeoCodingV14C extends LinearOpMode {
 
 
             if (gamepad2.x) {
-                backGrab.setPosition(1);
+                backGrab.setPosition(.8);
                 grab.setPosition(0.44);
 
             }
@@ -180,15 +180,15 @@ public class LeoCodingV14C extends LinearOpMode {
             //rightgrab down is open
             if (gamepad2.y ) {
                 backGrab.setPosition(.5);
-                sleep(250);
-                grab.setPosition(.9);
+                sleep(150);
+                grab.setPosition(1);
 
             }
 
             if (activeArm2.getCurrentPosition() > -1000 && gamepad1.a ) {
                 arm1.setPosition(0.10);
                 arm2.setPosition(0.90);
-                wrist.setPosition(.8);
+                wrist.setPosition(.7);
             }
             if (activeArm2.getCurrentPosition() < -1000){
                 arm1.setPosition(0.63);
@@ -207,7 +207,8 @@ public class LeoCodingV14C extends LinearOpMode {
             if (gamepad2.a ) {
                 //BETU code
                 //axon wrist code
-                wrist.setPosition(.83);
+                //old claw
+                wrist.setPosition(.63);
 
                 wrist1.setPosition(.91);
                 wrist2.setPosition(0.08);
@@ -236,6 +237,7 @@ public class LeoCodingV14C extends LinearOpMode {
 //                arm2.setPosition(0.13);
 
                 //vertical handoff
+                //old claw
                 wrist.setPosition(0);
 
                 wrist1.setPosition(0.08);
