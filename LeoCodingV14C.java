@@ -179,16 +179,16 @@ public class LeoCodingV14C extends LinearOpMode {
             //leftgrab up is open
             //rightgrab down is open
             if (gamepad2.y ) {
-                backGrab.setPosition(.5);
+                backGrab.setPosition(.57);
                 sleep(150);
                 grab.setPosition(1);
 
             }
 
             if (activeArm2.getCurrentPosition() > -1000 && gamepad1.a ) {
-                arm1.setPosition(0.10);
+                arm1.setPosition(0.12);
                 arm2.setPosition(0.90);
-                wrist.setPosition(.7);
+                wrist.setPosition(.6);
             }
             if (activeArm2.getCurrentPosition() < -1000){
                 arm1.setPosition(0.63);
@@ -213,7 +213,7 @@ public class LeoCodingV14C extends LinearOpMode {
                 wrist1.setPosition(.91);
                 wrist2.setPosition(0.08);
                 swivel.setPosition(.68);
-                arm1.setPosition(0.46);
+                arm1.setPosition(0.49);
                 arm2.setPosition(.53);
 
                 //goBilda servo code
@@ -226,26 +226,24 @@ public class LeoCodingV14C extends LinearOpMode {
 
             if (gamepad2.b ) {
                 //BETU code
-                //freaky ah auto handoff
-//                wrist.setPosition(1);
-//
-//                wrist1.setPosition(0.20);
-//                wrist2.setPosition(.79);
-//                swivel.setPosition(.65);
-//                sleep(200);
-//                arm1.setPosition(.86);
-//                arm2.setPosition(0.13);
-
                 //vertical handoff
-                //old claw
                 wrist.setPosition(0);
 
-                wrist1.setPosition(0.08);
-                wrist2.setPosition(.92);
+                wrist1.setPosition(0.07);
+                wrist2.setPosition(.93);
                 swivel.setPosition(.63);
-                arm1.setPosition(.63);
-                arm2.setPosition(0.36);
+                arm1.setPosition(.67);
+                arm2.setPosition(0.35);
 
+                //freaky ah auto handoff/specimen handoff
+//                wrist.setPosition(.78);
+//
+//                wrist1.setPosition(0.21);
+//                wrist2.setPosition(.78);
+//                swivel.setPosition(.65);
+//                sleep(200);
+//                arm1.setPosition(.85);
+//                arm2.setPosition(0.14);
                 //normal handoff
 //                wrist.setPosition(.55);
 //
@@ -262,11 +260,21 @@ public class LeoCodingV14C extends LinearOpMode {
 //                arm1.setPosition(.83);
 //                arm2.setPosition(0.17);
             }
+            if(gamepad2.right_bumper){
+                //specimen handoff
+                wrist.setPosition(.78);
 
+                wrist1.setPosition(0.21);
+                wrist2.setPosition(.78);
+                swivel.setPosition(.65);
+                sleep(200);
+                arm1.setPosition(.88);
+                arm2.setPosition(0.14);
+            }
             if(gamepad2.dpad_up){
-                swivel.setPosition(.68);
-                wrist1.setPosition(.7);
-                wrist2.setPosition(0.3);
+                swivel.setPosition(0);
+                wrist1.setPosition(.68);
+                wrist2.setPosition(0.41);
             }
 
             if(gamepad2.dpad_left){
@@ -282,17 +290,17 @@ public class LeoCodingV14C extends LinearOpMode {
 //                grab.setPosition(0.4);
 //                sleep(100);
                 swivel.setPosition(0);
-                wrist1.setPosition(.62);
-                wrist2.setPosition(0.37);
+                wrist1.setPosition(.61);
+                wrist2.setPosition(0.38);
             }
 
             if(gamepad2.right_stick_button){
 //                grab.setPosition(0.4);
 //                sleep(100);
 //                swivel.setPosition(0);
-                wrist.setPosition(.2);
-                arm1.setPosition(0.39);
-                arm2.setPosition(.6);
+                wrist.setPosition(.3);
+                arm1.setPosition(0.32);
+                arm2.setPosition(.67);
             }
 
             //arm straight up
@@ -317,10 +325,10 @@ public class LeoCodingV14C extends LinearOpMode {
                 right_back.setPower(RB_Power);
 
             } else {
-                left_drive.setPower((LF_Power) * .35);
-                right_drive.setPower((RF_Power) * .35);
-                left_back.setPower((LB_Power) * .35);
-                right_back.setPower((RB_Power) * .35);
+                left_drive.setPower((LF_Power) * .5);
+                right_drive.setPower((RF_Power) * .5);
+                left_back.setPower((LB_Power) * .5);
+                right_back.setPower((RB_Power) * .5);
             }
 
 
