@@ -124,11 +124,11 @@ public class LeoCodingV14C extends LinearOpMode {
         activeArm1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         activeArm2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-//        cap.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//        cap2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        cap.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        cap2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        cap.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        cap2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//        cap.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//        cap2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         activeArm1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         activeArm2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -170,8 +170,8 @@ public class LeoCodingV14C extends LinearOpMode {
 
 
             if (gamepad2.x) {
-                backGrab.setPosition(.8);
-                grab.setPosition(0.44);
+                backGrab.setPosition(.9);
+                grab.setPosition(0.28);
 
             }
 
@@ -179,9 +179,9 @@ public class LeoCodingV14C extends LinearOpMode {
             //leftgrab up is open
             //rightgrab down is open
             if (gamepad2.y ) {
-                backGrab.setPosition(.57);
+                backGrab.setPosition(.55);
                 sleep(150);
-                grab.setPosition(1);
+                grab.setPosition(.8);
 
             }
 
@@ -213,8 +213,8 @@ public class LeoCodingV14C extends LinearOpMode {
                 wrist1.setPosition(.91);
                 wrist2.setPosition(0.08);
                 swivel.setPosition(.68);
-                arm1.setPosition(0.49);
-                arm2.setPosition(.53);
+                arm1.setPosition(0.53);
+                arm2.setPosition(.49);
 
                 //goBilda servo code
 //                wrist1.setPosition(.89);
@@ -229,9 +229,9 @@ public class LeoCodingV14C extends LinearOpMode {
                 //vertical handoff
                 wrist.setPosition(0);
 
-                wrist1.setPosition(0.07);
-                wrist2.setPosition(.93);
-                swivel.setPosition(.63);
+                wrist1.setPosition(0.06);
+                wrist2.setPosition(.91);
+                swivel.setPosition(.64);
                 arm1.setPosition(.67);
                 arm2.setPosition(0.35);
 
@@ -264,17 +264,18 @@ public class LeoCodingV14C extends LinearOpMode {
                 //specimen handoff
                 wrist.setPosition(.78);
 
-                wrist1.setPosition(0.21);
-                wrist2.setPosition(.78);
+                wrist1.setPosition(0.20);
+                wrist2.setPosition(.79);
                 swivel.setPosition(.65);
-                sleep(200);
-                arm1.setPosition(.88);
-                arm2.setPosition(0.14);
+                sleep(100);
+                arm1.setPosition(.86);
+                arm2.setPosition(0.16);
             }
+
             if(gamepad2.dpad_up){
-                swivel.setPosition(0);
-                wrist1.setPosition(.68);
-                wrist2.setPosition(0.41);
+                swivel.setPosition(.68);
+                wrist1.setPosition(.77);
+                wrist2.setPosition(0.2);
             }
 
             if(gamepad2.dpad_left){
@@ -289,9 +290,12 @@ public class LeoCodingV14C extends LinearOpMode {
             if(gamepad2.left_stick_button){
 //                grab.setPosition(0.4);
 //                sleep(100);
+                wrist.setPosition(.78);
                 swivel.setPosition(0);
-                wrist1.setPosition(.61);
-                wrist2.setPosition(0.38);
+                wrist1.setPosition(.62);
+                wrist2.setPosition(0.37);
+                arm1.setPosition(.88);
+                arm2.setPosition(0.14);
             }
 
             if(gamepad2.right_stick_button){
@@ -349,7 +353,16 @@ public class LeoCodingV14C extends LinearOpMode {
                 activeArm2.setPower(Math.abs(gamepad1.left_trigger - gamepad1.right_trigger));
             }
 
-            if (cap2.getCurrentPosition() > -3050) {
+
+
+
+
+
+//if(gamepad1.b){
+//    boolean w=true;
+//}
+
+            if (cap2.getCurrentPosition() > -3050 && !gamepad1.b) {
 
 
                 cap.setPower(gamepad2.left_trigger - gamepad2.right_trigger);
@@ -360,14 +373,35 @@ public class LeoCodingV14C extends LinearOpMode {
                 cap2.setPower(0);
             }
 
-            if(touch.isPressed()){
-                cap.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                cap2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            if(gamepad1.right_stick_button){
+//                cap.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//                cap2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                cap.setPower(1);
+                cap2.setPower(1);
+                cap.setTargetPosition(-825);
+                cap2.setTargetPosition(-825);
+                cap.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                cap2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             }
-            else{
-                cap.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                cap2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+            if(gamepad2.left_trigger+gamepad2.right_trigger>0){
+              cap.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+              cap2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             }
+
+
+            if(gamepad1.start){
+                cap.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                cap2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            }
+//            if(touch.isPressed()){
+//                cap.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//                cap2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//            }
+//            else{
+//                cap.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//                cap2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//            }
 //            }
 //
 //
@@ -397,6 +431,8 @@ public class LeoCodingV14C extends LinearOpMode {
 //            telemetry.addData("LMotor", left_back.getCurrentPosition());
 //            telemetry.addData("FrMotor", right_drive.getCurrentPosition());
 //            telemetry.addData("FLMotor", left_drive.getCurrentPosition());
+//            telemetry.addData("lefttrigger", gamepad2.left_trigger);
+//            telemetry.addData("righttrigger", gamepad2.right_trigger);
 
 //            telemetry.addData("BlueValue", color.blue());
 //            telemetry.addData("RedValue",  color.red());
