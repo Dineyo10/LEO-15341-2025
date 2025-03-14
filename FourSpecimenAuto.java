@@ -72,20 +72,20 @@ public class FourSpecimenAuto extends LinearOpMode {
 
     static final Pose2D TARGET_1 = new Pose2D(DistanceUnit.MM,-300,0,AngleUnit.DEGREES,0);
     static final Pose2D TARGET_2 = new Pose2D(DistanceUnit.MM, -780+40, -20, AngleUnit.DEGREES, 0);
-    static final Pose2D TARGET_3 = new Pose2D(DistanceUnit.MM,-570,520, AngleUnit.DEGREES,0);
-    static final Pose2D TARGET_4 = new Pose2D(DistanceUnit.MM, -1200, 800, AngleUnit.DEGREES, 0);
+    static final Pose2D TARGET_3 = new Pose2D(DistanceUnit.MM,-550,520, AngleUnit.DEGREES,0);
+    static final Pose2D TARGET_4 = new Pose2D(DistanceUnit.MM, -1200, 780, AngleUnit.DEGREES, 0);
     static final Pose2D TARGET_5 = new Pose2D(DistanceUnit.MM, -420, 1000, AngleUnit.DEGREES, 0);
     static final Pose2D TARGET_5_33 = new Pose2D(DistanceUnit.MM, -1100, 900, AngleUnit.DEGREES, 0);
     static final Pose2D TARGET_5_66 = new Pose2D(DistanceUnit.MM, -400, 1130, AngleUnit.DEGREES, 0);
-    static final Pose2D TARGET_6 = new Pose2D(DistanceUnit.MM, -250,780, AngleUnit.DEGREES, 0);
-    static final Pose2D TARGET_7 = new Pose2D(DistanceUnit.MM, -196, 780, AngleUnit.DEGREES, 0);
-    static final Pose2D TARGET_8 = new Pose2D(DistanceUnit.MM, -400, -125, AngleUnit.DEGREES, 0);
+    static final Pose2D TARGET_6 = new Pose2D(DistanceUnit.MM, -250,770, AngleUnit.DEGREES, 0);
+    static final Pose2D TARGET_7 = new Pose2D(DistanceUnit.MM, -205, 770, AngleUnit.DEGREES, 0);
+    static final Pose2D TARGET_8 = new Pose2D(DistanceUnit.MM, -300, -50, AngleUnit.DEGREES, 0);
     static final Pose2D TARGET_9 = new Pose2D(DistanceUnit.MM, -780+40, -125, AngleUnit.DEGREES, 0);
-    static final Pose2D TARGET_10 = new Pose2D(DistanceUnit.MM, -193, 780, AngleUnit.DEGREES, 0);
-    static final Pose2D TARGET_11 = new Pose2D(DistanceUnit.MM, -400, -275, AngleUnit.DEGREES, 0);
+    static final Pose2D TARGET_10 = new Pose2D(DistanceUnit.MM, -203, 770, AngleUnit.DEGREES, 0);
+    static final Pose2D TARGET_11 = new Pose2D(DistanceUnit.MM, -300, -100, AngleUnit.DEGREES, 0);
     static final Pose2D TARGET_12 = new Pose2D(DistanceUnit.MM, -780+40, -250, AngleUnit.DEGREES, 0);
-    static final Pose2D TARGET_13 = new Pose2D(DistanceUnit.MM, -193, 780, AngleUnit.DEGREES, 0);
-    static final Pose2D TARGET_14 = new Pose2D(DistanceUnit.MM, -400, -325, AngleUnit.DEGREES, 0);
+    static final Pose2D TARGET_13 = new Pose2D(DistanceUnit.MM, -203, 770, AngleUnit.DEGREES, 0);
+    static final Pose2D TARGET_14 = new Pose2D(DistanceUnit.MM, -300, -175, AngleUnit.DEGREES, 0);
     static final Pose2D TARGET_15 = new Pose2D(DistanceUnit.MM, -780+40, -325, AngleUnit.DEGREES, 0);
     static final Pose2D TARGET_16 = new Pose2D(DistanceUnit.MM, -200, 1100, AngleUnit.DEGREES, 0);
     static final Pose2D TARGET_17 = new Pose2D(DistanceUnit.MM, 0, 0, AngleUnit.DEGREES, 0);
@@ -180,9 +180,9 @@ public class FourSpecimenAuto extends LinearOpMode {
             switch (stateMachine){
                 case WAITING_FOR_START:
                     //the first step in the autonomous
-                    back_arm_bar();
                     highRung();
-                    sleep(280);
+                    back_arm_bar();
+                    sleep(450);
                     stateMachine = StateMachine.DRIVE_TO_TARGET_2;
                     break;
                 case DRIVE_TO_TARGET_1:
@@ -202,11 +202,12 @@ public class FourSpecimenAuto extends LinearOpMode {
                     break;
                 case DRIVE_TO_TARGET_2:
                     //drive to the second target
-                    if (nav.driveTo(odo.getPosition(), TARGET_2, .65, 0)){
+                    if (nav.driveTo(odo.getPosition(), TARGET_2, .63, 0)){
                         grab();
                         sleep(200);
-                        bottom();
                         forward_arm_back();
+                        bottom();
+
 //                        forward_arm_up();
 
 //                        sleep(300);
@@ -237,7 +238,6 @@ public class FourSpecimenAuto extends LinearOpMode {
                     if(nav.driveTo(odo.getPosition(),TARGET_5,1,0)){
                         telemetry.addLine("at position #5!");
 //                        forward_arm_up();
-
                         stateMachine = StateMachine.DRIVE_TO_TARGET_5_33;
                     }
                     break;
@@ -245,7 +245,7 @@ public class FourSpecimenAuto extends LinearOpMode {
                     if(nav.driveTo(odo.getPosition(),TARGET_5_33,1,0)){
                         telemetry.addLine("at position #5!");
                         forward_arm_upper();
-
+                        back_arm_bar();
                         stateMachine = StateMachine.DRIVE_TO_TARGET_5_66;
                     }
                     break;
@@ -261,29 +261,23 @@ public class FourSpecimenAuto extends LinearOpMode {
                 case DRIVE_TO_TARGET_6:
                     if(nav.driveTo(odo.getPosition(), TARGET_6, 1, 0)){
                         telemetry.addLine("at position #6");
-                        forward_arm_up();
 
 //                        transfer();
                         stateMachine = StateMachine.DRIVE_TO_TARGET_7;
                     }
                     break;
                 case DRIVE_TO_TARGET_7:
-                    if(nav.driveTo(odo.getPosition(), TARGET_7, .7, 0)){
+                    if(nav.driveTo(odo.getPosition(), TARGET_7, .7, 0.1)){
                         telemetry.addLine("at position #7");
-//                        grab();
-//                        sleep(400);
-//                        swivelSet();
-//                        forward_arm_back();
-//                        sleep(300);
-//                        transfer();
-//                        back_arm_bar();
-//                        highRung();
+                        forward_arm_up();
+                        open_less();
+                        sleep(300);
                         grab();
-                        sleep(100);
+                        sleep(300);
                         swivelSet();
 //                        sleep(100);
                         forward_arm_back();
-                        sleep(150);
+                        sleep(350);
                         stateMachine = StateMachine.DRIVE_TO_TARGET_8;
                     }
                     break;
@@ -293,9 +287,9 @@ public class FourSpecimenAuto extends LinearOpMode {
                         transfer();
 //                        transfer();
 //                        back_arm_bar();
-                        back_arm_bar();
                         highRung();
-                        sleep(500);
+                        back_arm_bar();
+                        sleep(600);
 
                         stateMachine = StateMachine.DRIVE_TO_TARGET_9;
                     }
@@ -307,7 +301,7 @@ public class FourSpecimenAuto extends LinearOpMode {
 
                         grab();
                         sleep(200);
-                        forward_arm_up();
+                        forward_arm_upper();
                         bottom();
 //                        sleep(300);
                         transfer();
@@ -317,14 +311,17 @@ public class FourSpecimenAuto extends LinearOpMode {
                     }
                     break;
                 case DRIVE_TO_TARGET_10:
-                    if(nav.driveTo(odo.getPosition(), TARGET_10, .8, 0)){
+                    if(nav.driveTo(odo.getPosition(), TARGET_10, .7, 0.1)){
                         telemetry.addLine("at position #10");
+                        forward_arm_up();
+                        open_less();
+                        sleep(300);
                         grab();
-                        sleep(250);
+                        sleep(200);
                         swivelSet();
 //                        sleep(100);
                         forward_arm_back();
-                        sleep(300);
+                        sleep(200);
 
 //                        transfer();
                         stateMachine = StateMachine.DRIVE_TO_TARGET_11;
@@ -337,9 +334,9 @@ public class FourSpecimenAuto extends LinearOpMode {
                         transfer();
 //                        transfer();
 //                        back_arm_bar();
-                        back_arm_bar();
                         highRung();
-                        sleep(550);
+                        back_arm_bar();
+                        sleep(700);
                         stateMachine = StateMachine.DRIVE_TO_TARGET_12;
                     }
                     break;
@@ -348,7 +345,7 @@ public class FourSpecimenAuto extends LinearOpMode {
 
                         grab();
                         sleep(200);
-                        forward_arm_up();
+                        forward_arm_upper();
                         bottom();
 //                        sleep(300);
                         transfer();
@@ -358,13 +355,16 @@ public class FourSpecimenAuto extends LinearOpMode {
                     }
                     break;
                 case DRIVE_TO_TARGET_13:
-                    if(nav.driveTo(odo.getPosition(), TARGET_13, 1, 0)){
+                    if(nav.driveTo(odo.getPosition(), TARGET_13, .7, 0.1)){
+                        forward_arm_up();
+                        open_less();
+                        sleep(200);
                         grab();
-                        sleep(350);
+                        sleep(200);
                         swivelSet();
 //                        sleep(100);
                         forward_arm_back();
-                        sleep(300);
+                        sleep(200);
                         telemetry.addLine("at position #13");
 //                        transfer();
                         stateMachine = StateMachine.DRIVE_TO_TARGET_14;
@@ -377,9 +377,9 @@ public class FourSpecimenAuto extends LinearOpMode {
                         transfer();
 //                        transfer();
 //                        back_arm_bar();
-                        back_arm_bar();
                         highRung();
-                        sleep(500);
+                        back_arm_bar();
+                        sleep(600);
                         stateMachine = StateMachine.DRIVE_TO_TARGET_15;
                     }
                     break;
@@ -434,17 +434,17 @@ public class FourSpecimenAuto extends LinearOpMode {
         }
     }
     public void open_less(){
-        grab.setPosition(0.83);
+        grab.setPosition(0.5);
 
     }
     public void grab(){
         backGrab.setPosition(.8);
-        grab.setPosition(0.44);
+        grab.setPosition(0.3);
     }
     public void transfer(){
         backGrab.setPosition(.5);
         sleep(150);
-        grab.setPosition(1);
+        grab.setPosition(.8);
     }
     public void reverseTransfer(){
         grab.setPosition(1);
@@ -454,8 +454,8 @@ public class FourSpecimenAuto extends LinearOpMode {
     }
     public void forward_arm_up(){
         swivel.setPosition(0);
-        wrist1.setPosition(.61);
-        wrist2.setPosition(0.38);
+        wrist1.setPosition(.62);
+        wrist2.setPosition(0.37);
 
     }
     public void forward_arm_upper(){
@@ -504,7 +504,7 @@ public class FourSpecimenAuto extends LinearOpMode {
         wrist.setPosition(.6);
     }
     public void back_arm_bar(){
-        wrist.setPosition(.3);
+        wrist.setPosition(.32);
         arm1.setPosition(0.32);
         arm2.setPosition(.67);
     }
@@ -524,8 +524,8 @@ public class FourSpecimenAuto extends LinearOpMode {
     public void highRung() {
         cap.setPower(1);
         cap2.setPower(1);
-        cap.setTargetPosition(-675);
-        cap2.setTargetPosition(-675);
+        cap.setTargetPosition(-800);
+        cap2.setTargetPosition(-800);
         cap.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         cap2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
