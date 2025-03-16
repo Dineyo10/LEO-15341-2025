@@ -525,10 +525,10 @@ public class FourSpecimenAutoAlt extends LinearOpMode {
     public void bottom() {
         cap.setPower(.6);
         cap2.setPower(.6);
-        cap.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        cap2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         cap.setTargetPosition(0);
         cap2.setTargetPosition(0);
+        cap.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        cap2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
     public void swivelSet(){
         swivel.setPosition(0.68);

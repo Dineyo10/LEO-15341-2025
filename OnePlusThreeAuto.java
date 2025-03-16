@@ -76,13 +76,13 @@ public class OnePlusThreeAuto extends LinearOpMode {
     static final Pose2D TARGET_2 = new Pose2D(DistanceUnit.MM, 0, -780+40, AngleUnit.DEGREES, 90);
     static final Pose2D TARGET_3 = new Pose2D(DistanceUnit.MM,450,-300, AngleUnit.DEGREES,90);
 //    static final Pose2D TARGET_3_5 = new Pose2D(DistanceUnit.MM,450,-300, AngleUnit.DEGREES,-90);
-    static final Pose2D TARGET_4 = new Pose2D(DistanceUnit.MM, 975, -595, AngleUnit.DEGREES, -90);
-    static final Pose2D TARGET_5 = new Pose2D(DistanceUnit.MM, 1140, -340, AngleUnit.DEGREES, -135);
+static final Pose2D TARGET_4 = new Pose2D(DistanceUnit.MM, 975, -590, AngleUnit.DEGREES, -90);
+    static final Pose2D TARGET_5 = new Pose2D(DistanceUnit.MM, 1140, -340+20, AngleUnit.DEGREES, -135);
     static final Pose2D TARGET_6 = new Pose2D(DistanceUnit.MM, 1200,-590, AngleUnit.DEGREES, -90);
-    static final Pose2D TARGET_7 = new Pose2D(DistanceUnit.MM, 1110, -340, AngleUnit.DEGREES, -135);
-    static final Pose2D TARGET_8 = new Pose2D(DistanceUnit.MM, 1180, -960, AngleUnit.DEGREES, 0);
-    static final Pose2D TARGET_8_5 = new Pose2D(DistanceUnit.MM, 1110, -970, AngleUnit.DEGREES, 0);
-    static final Pose2D TARGET_9 = new Pose2D(DistanceUnit.MM, 1140, -340, AngleUnit.DEGREES, -135);
+    static final Pose2D TARGET_7 = new Pose2D(DistanceUnit.MM, 1110, -340+20, AngleUnit.DEGREES, -135);
+    static final Pose2D TARGET_8 = new Pose2D(DistanceUnit.MM, 1160, -960, AngleUnit.DEGREES, 0);
+    static final Pose2D TARGET_8_5 = new Pose2D(DistanceUnit.MM, 1100, -970, AngleUnit.DEGREES, 0);
+    static final Pose2D TARGET_9 = new Pose2D(DistanceUnit.MM, 1120, -330+20, AngleUnit.DEGREES, -135);
     static final Pose2D TARGET_10 = new Pose2D(DistanceUnit.MM, 900, -1300, AngleUnit.DEGREES, 0);
     static final Pose2D TARGET_11 = new Pose2D(DistanceUnit.MM, 300, -1300, AngleUnit.DEGREES, 0);
 
@@ -196,7 +196,7 @@ public class OnePlusThreeAuto extends LinearOpMode {
                     if (nav.driveTo(odo.getPosition(), TARGET_1, 1, 0)){
                         highRung();
                         back_arm_bar();
-                        sleep(900);
+                        sleep(1000);
                         telemetry.addLine("at position #1!");
 
                         stateMachine = StateMachine.DRIVE_TO_TARGET_2;
@@ -464,7 +464,7 @@ public class OnePlusThreeAuto extends LinearOpMode {
     }
     public void grab(){
         backGrab.setPosition(.8);
-        grab.setPosition(0.3);
+        grab.setPosition(0.27);
     }
     public void transfer(){
         backGrab.setPosition(.5);
@@ -549,8 +549,8 @@ public class OnePlusThreeAuto extends LinearOpMode {
     public void highRung() {
         cap.setPower(1);
         cap2.setPower(1);
-        cap.setTargetPosition(-870);
-        cap2.setTargetPosition(-870);
+        cap.setTargetPosition(-880);
+        cap2.setTargetPosition(-880);
         cap.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         cap2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
@@ -573,10 +573,10 @@ public class OnePlusThreeAuto extends LinearOpMode {
     public void bottom() {
         cap.setPower(1);
         cap2.setPower(1);
-        cap.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        cap2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         cap.setTargetPosition(0);
         cap2.setTargetPosition(0);
+        cap.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        cap2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
     public void swivelSet(){
         swivel.setPosition(0.68);

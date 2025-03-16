@@ -171,7 +171,7 @@ public class LeoCodingV14C extends LinearOpMode {
 
             if (gamepad2.x) {
                 backGrab.setPosition(.9);
-                grab.setPosition(0.28);
+                grab.setPosition(0.27);
 
             }
 
@@ -179,7 +179,7 @@ public class LeoCodingV14C extends LinearOpMode {
             //leftgrab up is open
             //rightgrab down is open
             if (gamepad2.y ) {
-                backGrab.setPosition(.55);
+                backGrab.setPosition(.52);
                 sleep(150);
                 grab.setPosition(.8);
 
@@ -188,11 +188,12 @@ public class LeoCodingV14C extends LinearOpMode {
             if (activeArm2.getCurrentPosition() > -1000 && gamepad1.a ) {
                 arm1.setPosition(0.12);
                 arm2.setPosition(0.90);
-                wrist.setPosition(.6);
+                wrist.setPosition(.3);
             }
             if (activeArm2.getCurrentPosition() < -1000){
                 arm1.setPosition(0.63);
                 arm2.setPosition(0.36);
+                wrist.setPosition(.3);
             }
 
 
@@ -262,7 +263,7 @@ public class LeoCodingV14C extends LinearOpMode {
             }
             if(gamepad2.right_bumper){
                 //specimen handoff
-                wrist.setPosition(.78);
+                wrist.setPosition(.76);
 
                 wrist1.setPosition(0.20);
                 wrist2.setPosition(.79);
@@ -373,16 +374,16 @@ public class LeoCodingV14C extends LinearOpMode {
                 cap2.setPower(0);
             }
 
-            if(gamepad1.right_stick_button){
-//                cap.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//                cap2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                cap.setPower(1);
-                cap2.setPower(1);
-                cap.setTargetPosition(-825);
-                cap2.setTargetPosition(-825);
-                cap.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                cap2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            }
+//            if(gamepad1.right_stick_button){
+////                cap.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+////                cap2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//                cap.setPower(1);
+//                cap2.setPower(1);
+//                cap.setTargetPosition(-845);
+//                cap2.setTargetPosition(-845);
+//                cap.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//                cap2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//            }
 
             if(gamepad2.left_trigger+gamepad2.right_trigger>0){
               cap.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -390,9 +391,13 @@ public class LeoCodingV14C extends LinearOpMode {
             }
 
 
-            if(gamepad1.start){
-                cap.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                cap2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//            if(gamepad1.start){
+//                cap.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//                cap2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//            }
+            if(gamepad2.start){
+                cap.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                cap2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             }
 //            if(touch.isPressed()){
 //                cap.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

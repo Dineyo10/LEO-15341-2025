@@ -16,7 +16,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 
 import java.util.Locale;
 
-@Autonomous(name="4 Samples", group="Auto 1")
+@Autonomous(name="4 Samples", group="Auto")
 //@Disabled
 
 public class FourSampleAuto extends LinearOpMode {
@@ -71,18 +71,17 @@ public class FourSampleAuto extends LinearOpMode {
         DRIVE_TO_TARGET_5_66,
 
     }
-
     static final Pose2D TARGET_1 = new Pose2D(DistanceUnit.MM,0,-300, AngleUnit.DEGREES,0);
-    static final Pose2D TARGET_2 = new Pose2D(DistanceUnit.MM, -300,300, AngleUnit.DEGREES, -135);
-    static final Pose2D TARGET_3 = new Pose2D(DistanceUnit.MM,1140, -340, AngleUnit.DEGREES,-135);
+    static final Pose2D TARGET_2 = new Pose2D(DistanceUnit.MM, 300,-600, AngleUnit.DEGREES, -135);
+    static final Pose2D TARGET_3 = new Pose2D(DistanceUnit.MM,1110, -340+20, AngleUnit.DEGREES,-135);
     //    static final Pose2D TARGET_3_5 = new Pose2D(DistanceUnit.MM,450,-300, AngleUnit.DEGREES,-90);
-    static final Pose2D TARGET_4 = new Pose2D(DistanceUnit.MM, 975, -595, AngleUnit.DEGREES, -90);
-    static final Pose2D TARGET_5 = new Pose2D(DistanceUnit.MM, 1140, -340, AngleUnit.DEGREES, -135);
-    static final Pose2D TARGET_6 = new Pose2D(DistanceUnit.MM, 1200,-590, AngleUnit.DEGREES, -90);
-    static final Pose2D TARGET_7 = new Pose2D(DistanceUnit.MM, 1110, -340, AngleUnit.DEGREES, -135);
-    static final Pose2D TARGET_8 = new Pose2D(DistanceUnit.MM, 1180, -960, AngleUnit.DEGREES, 0);
+    static final Pose2D TARGET_4 = new Pose2D(DistanceUnit.MM, 975, -595+20, AngleUnit.DEGREES, -90);
+    static final Pose2D TARGET_5 = new Pose2D(DistanceUnit.MM, 1140, -340+20, AngleUnit.DEGREES, -135);
+    static final Pose2D TARGET_6 = new Pose2D(DistanceUnit.MM, 1200,-590+20, AngleUnit.DEGREES, -90);
+    static final Pose2D TARGET_7 = new Pose2D(DistanceUnit.MM, 1110, -340+20, AngleUnit.DEGREES, -135);
+    static final Pose2D TARGET_8 = new Pose2D(DistanceUnit.MM, 1180, -960+30, AngleUnit.DEGREES, 0);
     static final Pose2D TARGET_8_5 = new Pose2D(DistanceUnit.MM, 1110, -970, AngleUnit.DEGREES, 0);
-    static final Pose2D TARGET_9 = new Pose2D(DistanceUnit.MM, 1140, -340, AngleUnit.DEGREES, -135);
+    static final Pose2D TARGET_9 = new Pose2D(DistanceUnit.MM, 1140, -340+20, AngleUnit.DEGREES, -135);
     static final Pose2D TARGET_10 = new Pose2D(DistanceUnit.MM, 900, -1300, AngleUnit.DEGREES, 0);
     static final Pose2D TARGET_11 = new Pose2D(DistanceUnit.MM, 300, -1300, AngleUnit.DEGREES, 0);
 
@@ -148,12 +147,14 @@ public class FourSampleAuto extends LinearOpMode {
 
         cap.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         cap2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         cap.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         cap2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         cap.setDirection(DcMotor.Direction.REVERSE);
 
         odo = hardwareMap.get(GoBildaPinpointDriver.class,"odo");
         odo.setOffsets(-187.5, -3); // //these are tuned for 3110-0002-0001 Product Insight #1
+//        odo.setPosition(new Pose2D(DistanceUnit.MM,500,0, AngleUnit.DEGREES,0));
         odo.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
         odo.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.FORWARD, GoBildaPinpointDriver.EncoderDirection.FORWARD);
 
@@ -201,9 +202,26 @@ public class FourSampleAuto extends LinearOpMode {
                     }
                     break;
                 case DRIVE_TO_TARGET_2:
-                    highBasket();
+
                     //drive to the second target
                     if (nav.driveTo(odo.getPosition(), TARGET_2, 1, 0.5)){
+//                        forward_arm_front();
+//                        sleep(800);
+
+                        forward_arm_back();
+                        sleep(100);
+                        bottom();
+//                        transfer();
+//                        Arm_out();
+
+                        telemetry.addLine("at position #2!");
+                        stateMachine = StateMachine.DRIVE_TO_TARGET_3;
+                    }
+                    break;
+                case DRIVE_TO_TARGET_3:
+                    highBasket();
+                    if(nav.driveTo(odo.getPosition(), TARGET_3, 1, 0.1)){
+                        telemetry.addLine("at position #3");
                         forward_arm_front();
                         sleep(800);
                         grab();
@@ -213,20 +231,6 @@ public class FourSampleAuto extends LinearOpMode {
                         bottom();
                         transfer();
                         Arm_out();
-
-                        telemetry.addLine("at position #2!");
-                        stateMachine = StateMachine.DRIVE_TO_TARGET_3;
-                    }
-                    break;
-                case DRIVE_TO_TARGET_3:
-                    if(nav.driveTo(odo.getPosition(), TARGET_3, 1, 0.1)){
-                        telemetry.addLine("at position #3");
-                        transfer();
-                        forward_arm_front();
-                        Arm_out();
-//                        open_less();
-//                        swivelZero();
-//                        sleep(500);
 
 
                         stateMachine = StateMachine.DRIVE_TO_TARGET_4;
@@ -246,6 +250,7 @@ public class FourSampleAuto extends LinearOpMode {
 //                    }
 //                    break;
                 case DRIVE_TO_TARGET_4:
+                    forward_arm_front();
                     if(nav.driveTo(odo.getPosition(),TARGET_4,1,.3)){
                         telemetry.addLine("at position #4");
                         grab();
@@ -466,7 +471,7 @@ public class FourSampleAuto extends LinearOpMode {
     }
     public void grab(){
         backGrab.setPosition(.8);
-        grab.setPosition(0.3);
+        grab.setPosition(0.27);
     }
     public void transfer(){
         backGrab.setPosition(.5);
@@ -575,10 +580,10 @@ public class FourSampleAuto extends LinearOpMode {
     public void bottom() {
         cap.setPower(1);
         cap2.setPower(1);
-        cap.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        cap2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         cap.setTargetPosition(0);
         cap2.setTargetPosition(0);
+        cap.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        cap2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
     public void swivelSet(){
         swivel.setPosition(0.68);
